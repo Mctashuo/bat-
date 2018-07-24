@@ -1,6 +1,7 @@
 #include<iostream>
 #include<cstring>
 using namespace std;
+void reverse(char *);
 int LCS(const char * str1,const char *str2) {
     int str1Len = (int)strlen(str1) + 1;  
     int str2Len = (int)strlen(str2) + 1;
@@ -45,9 +46,26 @@ int LCS(const char * str1,const char *str2) {
             }else j--;
         }
     }
-    cout<<str<<endl;
+    char  s1[256];
+    strncpy(s1,str.c_str(),strlen(str.c_str())); 
+    s1[strlen(str.c_str())] = '\0';
+    reverse(s1);
+    cout<<s1<<endl;
     return C[str1Len - 1][str2Len - 1];
     
+}
+void reverse(char * str) {
+    int size = 4 - 1;
+    int from = 0;
+
+    //cout<<size<<endl;
+    while(from < size) {
+        char temp = str[size];
+        str[size--] = str[from];
+        str[from++] = temp;
+
+    }
+    //cout<<*(str++)<<endl;
 }
 int main() {
     //const char * str1 = "TCGGATCGACTT";
