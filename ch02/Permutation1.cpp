@@ -5,39 +5,36 @@ using namespace std;
 //有重复
 //带重复字符的全排列是每个字符分别与它后面拓重复出现的字符交换
 //即:第i个字符中(前)与第j个字符(后)交换时,要求[i,j)中没有与第j个字符相等的数
-void Print(int *a,int size) {
+//降低时间复杂度,空间换时间
+void Print(char *a,int size) {
     for(int i = 0;i < size;i++) {
         cout<<a[i]<<"\t";
     }
     cout<<endl;
 
 }
-void swap(int * a,int * b) {
-    int temp = *a;
+void swap(char * a,int * b) {
+    char temp = *a;
     *a = *b;
     *b = temp; 
 }
-bool IsDuplicate(int * a,int i,int j) {
-    for(;i < j;i++) {
-        if(a[i] == a[j]) return true;
-    }
-    return false;
-}
-void Permutaion(int *a,int size,int n) {
+void Permutaion(char *a,int size,int n) {
     if(n == size - 1) {
         Print(a,size);
         return;
     } 
 
+    int dup[256] = {0};
     for(int i = n;i < size;i++) {
-        if(!IsDuplicate(a,n,i))    swap(a[i],a[n]);
-        else continue;
+        if(dup[a[i]] == 1)  continue;
+        dup[a[i]] = 1;
+        swap(a[i],a[n]);
         Permutaion(a,size,n+1);
         swap(a[n],a[i]);
     }
 }
 int main() {
-    int a[] = {1,2,2,3};
-    Permutaion(a,4,0);
+    char str[] = "abbc"; 
+    Permutaion(str,4,0);
     return 0;
 }
