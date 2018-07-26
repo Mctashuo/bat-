@@ -21,8 +21,7 @@ void Print(int * a,int size) {
     cout<<endl;
 }
 void Manacher(const char * a,int size) {
-    const char * head = a;
-    int P[size];
+    int P[size] = {0};
     P[0] = 1;
     int mx,id;
     int i = 1;
@@ -30,9 +29,9 @@ void Manacher(const char * a,int size) {
     mx = 1;
 
     a++;
-    while(*a) {
+    while(i < size) {
         if(mx > i) {
-            mx - i > P[2 * id - i] ? P[i] = P[2*id-1] : P[i] = mx - i; 
+            mx - i > P[2 * id - i] ? P[i] = P[2*id-i] : P[i] = mx - i; 
         }
         else {
             P[i] = 1;
@@ -43,7 +42,7 @@ void Manacher(const char * a,int size) {
             mx = i+P[i];
             id = i;
         }
-        a++;
+        i++;
     }
     Print(P,size);
 }
