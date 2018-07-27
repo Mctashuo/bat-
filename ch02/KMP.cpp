@@ -15,7 +15,11 @@ void GetNext(const char * p,int next[]) {
         if(k == -1 || p[k] == p[j]) {
             j++;
             k++;
-            next[j] = k;
+            if(p[j] == p[k]) {
+                next[j] = next[k];
+            }else {
+                next[j] = k;
+            }
         }else {
             //P[j]与p[k]失配,则递归计算前缀p[next[k]]
             k = next[k];
@@ -30,16 +34,16 @@ int KMP(const char * str,const char * p,int next[]) {
     int i = 0;
     int j = 0;
     while(i < str_size) {
-       if(str[i] == p[j] || j == -1) {
+        if(str[i] == p[j] || j == -1) {
             i++;
             j++;
-       }else {
+        }else {
             j = next[j];
-       } 
-       if(j == p_size) {
+        } 
+        if(j == p_size) {
             postion = i - j;
             break;
-       }
+        }
     }
     return postion;
 }
@@ -50,7 +54,7 @@ void Print(int * a,int size) {
     cout<<endl;
 }
 int main() {
-    const char * p = "abcabcaba";
+    const char * p = "abaabcaba";
     const char * str = "aaabcabcabaa";
     int next[strlen(p)];
     GetNext(p,next);
