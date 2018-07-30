@@ -4,14 +4,23 @@ int MaxSubarray(const int *a,int size) {
     int result;
     int sum = a[0];
     result = sum;
+    int from,to;
     for(int i = 0;i < size;i++) {
         if(sum > 0) 
             sum += a[i];
-        else
+        else {
             sum = a[i];
-        if(sum > result) 
+            from = i;
+        }
+        if(sum > result)  {
             result = sum;
+            to = i;
+        }
     }
+    for(int i = from;i <= to;i++) {
+        cout<<a[i]<<"\t";
+    }
+    cout<<endl;
     return result;
      
 }
