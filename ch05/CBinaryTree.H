@@ -24,6 +24,7 @@ class CBinaryTree {
 
     public:
         CBinaryTree();
+        bool Insert(int value);
         STreeNode * Find(int value) const;
         ~CBinaryTree();
 };
