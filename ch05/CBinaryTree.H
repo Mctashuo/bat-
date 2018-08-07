@@ -22,9 +22,12 @@ class CBinaryTree {
         void _PreOrder(VISIT Visit) const;      //非
 
 
+        void DeleteChildLess(STreeNode * pParent,STreeNode * pNode);    //pNode无子
+        void DeleteSingleSon(STreeNode & pParent,STreeNode * pNode);    //pNode是pParent的唯一子结点
     public:
         CBinaryTree();
         bool Insert(int value);
+        bool Delete(int value);
         STreeNode * Find(int value) const;
         ~CBinaryTree();
 };

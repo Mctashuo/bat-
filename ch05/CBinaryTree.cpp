@@ -5,7 +5,6 @@ CBinaryTree::CBinaryTree() {
 }
 
 CBinaryTree::~CBinaryTree() {
-
 }
 
 
@@ -65,4 +64,80 @@ bool CBinaryTree::_Insert2(int value) {
 }
 bool CBinaryTree::Insert(int value) {
     return _Insert2(value);
+}
+
+
+//删除算法
+//分三种情况处理,
+//p为叶子结点
+//p为单支结点
+//p的左子树和右子树均不空
+//
+void CBinaryTree::DeleteChildLess(STreeNode * pParent,STreeNode * pNode) {
+    if(m_pRoot == pParent) {
+        m_pRoot = NULL;
+    }else if(pParent->pLeft == pNode) 
+        pParent->pLeft = NULL;
+    else if(pParent->pRight == pNode)
+       pParent->pRight = NULL; 
+    delete pNode;
+}
+//删除单支结点
+void CBinaryTree::DeleteSingleSon(STreeNode & pParent,STreeNode * pNode) {
+    //找pNode的子结点
+    STreeNode * pSub;
+    if(pNode->pLeft != NULL)
+        pSub=pNode->pLeft;
+    else
+        pSub = pNode->pRight;
+    if(pParent.pLeft == pNode) {
+        pParent.pLeft = pSub;
+    }
+    else 
+        pParent.pRight = pSub;
+    delete pNode;
+
+    
+}
+
+//根据值删除结点
+bool CBinaryTree::Delete(int value) {
+    STreeNode * pNode = m_pRoot;
+    STreeNode * pParent = pNode;
+    while(pNode) {
+        if(value < pNode->value) {
+           pParent = pNode;
+           pNode = pNode->pLeft; 
+        }else if(value > pNode->value) {
+            pParent = pNode;
+            pNode = pNode->pRight;
+        } else 
+            break; 
+    }
+
+    if(!pNode) 
+        return false;
+
+    if(pNode->pLeft == NULL && pNode->pRight ==NULL) {
+        DeleteChildLess(pParent,pNode);
+        return true;
+    }else if(pNode->pLeft == NULL || pNode->pRight == NULL) {
+        DeleteSingleSon(*pParent,pNode);
+        return true;
+    }
+    else {
+        STreeNode *pCur = pNode;        
+        while(pNode) {
+            pParent = pNode;
+            pNode= pNode->pLeft;
+        }
+
+        pCur->value = pNode->value;
+        if(pNode->pRight)
+            DeleteSingleSon(*pParent,pNode);
+        else
+            DeleteChildLess(pParent,pNode);
+        return true;
+    }
+    
 }
