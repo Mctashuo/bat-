@@ -1,4 +1,5 @@
-#include"CBinaryTree.H"
+#include"CBinaryTree.h"
+#include <stack>
 
 CBinaryTree::CBinaryTree() {
 
@@ -104,6 +105,7 @@ void CBinaryTree::DeleteSingleSon(STreeNode & pParent,STreeNode * pNode) {
 bool CBinaryTree::Delete(int value) {
     STreeNode * pNode = m_pRoot;
     STreeNode * pParent = pNode;
+    //查找
     while(pNode) {
         if(value < pNode->value) {
            pParent = pNode;
@@ -118,6 +120,7 @@ bool CBinaryTree::Delete(int value) {
     if(!pNode) 
         return false;
 
+    //分情况
     if(pNode->pLeft == NULL && pNode->pRight ==NULL) {
         DeleteChildLess(pParent,pNode);
         return true;
@@ -140,4 +143,32 @@ bool CBinaryTree::Delete(int value) {
         return true;
     }
     
+}
+
+void CBinaryTree::PreOrder(VISIT Visit) const {
+    _PreOrder2(Visit);
+}
+
+void CBinaryTree::_PreOrder(STreeNode * pRoot,VISIT Visit) const {
+    Visit(pRoot->value);
+    _PreOrder(pRoot->pLeft,Visit);
+    _PreOrder(pRoot->pRight,Visit);
+}
+
+void CBinaryTree::_PreOrder2(VISIT Visit) const {
+    if(!m_pRoot) {
+        return;
+    } 
+    std::stack<STreeNode *> s;
+    s.push(m_pRoot);
+    STreeNode * pCur = m_pRoot;
+    while(!s.empty()) {
+        pCur = s.top();
+        s.pop();
+        Visit(pCur->value);
+        if(pCur->pRight)
+            s.push(pCur->pRight);
+        if(pCur->pLeft)
+            s.push(pCur->pLeft);
+    }
 }
