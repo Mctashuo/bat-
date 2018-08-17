@@ -172,3 +172,37 @@ void CBinaryTree::_PreOrder2(VISIT Visit) const {
             s.push(pCur->pLeft);
     }
 }
+
+
+void CBinaryTree::InOrder(VISIT Visit) const {
+    _InOrder2(Visit);
+}
+void CBinaryTree::_InOrder(STreeNode * pRoot,VISIT Visit) const {
+    _InOrder(pRoot->pLeft,Visit);
+    Visit(pRoot->value);
+    _InOrder(pRoot->pRight,Visit);
+}
+
+void CBinaryTree::_InOrder2(VISIT Visit) const {
+    if(!m_pRoot) {
+        return;
+    } 
+    std::stack<STreeNode *> s;
+    STreeNode * pCur = m_pRoot;
+    while(pCur || !s.empty()) {
+        //找最左节点
+        while(pCur) {
+            s.push(pCur);
+            pCur = pCur->pLeft;
+        }
+
+
+        if(!s.empty()) {
+            pCur = s.top();
+            s.pop();
+            Visit(pCur->value);
+            pCur = pCur->pRight;
+
+        }
+    }
+}

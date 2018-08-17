@@ -20,6 +20,8 @@ class CBinaryTree {
         bool _Insert2(int value);                   //非递归算法
         void _PreOrder(STreeNode * pRoot,VISIT Visit) const;    //递归
         void _PreOrder2(VISIT Visit) const;      //非
+        void _InOrder(STreeNode * pRoot,VISIT Visit) const;
+        void _InOrder2(VISIT Visit) const;
 
         void DeleteChildLess(STreeNode * pParent,STreeNode * pNode);    //pNode无子
         void DeleteSingleSon(STreeNode & pParent,STreeNode * pNode);    //pNode是pParent的唯一子结点
@@ -29,6 +31,7 @@ class CBinaryTree {
         bool Delete(int value);
         STreeNode * Find(int value) const;
         void PreOrder(VISIT Visit) const;
+        void InOrder(VISIT Visit) const;
         ~CBinaryTree();
 };
 #endif //_CBINARYTREE
