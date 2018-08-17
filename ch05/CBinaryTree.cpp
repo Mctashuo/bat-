@@ -206,3 +206,57 @@ void CBinaryTree::_InOrder2(VISIT Visit) const {
         }
     }
 }
+void CBinaryTree::_InOrder3(VISIT Visit) const {
+    if(!m_pRoot)
+        return;
+    std::stack <std::pair<STreeNode *,int>> s;
+    s.push(std::make_pair(m_pRoot,0));
+    STreeNode * pCur;
+    int time;
+    while(!s.empty()) {
+        pCur = s.top().first;
+        time = s.top().second;
+        if(0 == time) { //第一次压栈
+            if(pCur->pRight)    //结点存在右结点,先保存
+                s.push(std::make_pair(pCur->pRight,0));     
+            s.push(std::make_pair(pCur,1)); //第二次压栈
+            if(pCur->pLeft)
+                s.push(std::make_pair(pCur->pLeft,0));      //后进先出,先访问左结点
+        }else {
+            Visit(pCur->value);
+        }
+    }
+}
+void CBinaryTree::PostOrder(VISIT Visit) const{
+    _PreOrder2(Visit);
+}
+void CBinaryTree::_PostOrder(STreeNode *pRoot,VISIT Visit) const{
+    _PreOrder(pRoot->pLeft,Visit);
+    _PreOrder(pRoot->pRight,Visit);
+    Visit(pRoot->value);
+     
+}
+
+void CBinaryTree::_PostOrder2(VISIT Visit) const {
+    if(!m_pRoot) 
+        return;
+    std::stack <std::pair<STreeNode *,int>> s;
+    s.push(std::make_pair(m_pRoot,0));
+
+    STreeNode * pCur;
+    int time;
+    while(!s.empty()) {
+        pCur = s.top().first;
+        time = s.top().second;
+        s.pop();
+        if(0 == time) {
+            if(pCur->pRight)
+                s.push(std::make_pair(pCur->pRight,0));
+            if(pCur->pLeft)
+                s.push(std::make_pair(pCur->pLeft,0));
+            s.push(std::make_pair(pCur,1));
+        }else {
+            Visit(pCur->value);
+        }
+    }
+}

@@ -22,6 +22,9 @@ class CBinaryTree {
         void _PreOrder2(VISIT Visit) const;      //非
         void _InOrder(STreeNode * pRoot,VISIT Visit) const;
         void _InOrder2(VISIT Visit) const;
+        void _InOrder3(VISIT Visit) const;      //记录次数
+        void _PostOrder(STreeNode * pRoot,VISIT Visit) const;
+        void _PostOrder2(VISIT Visit) const;
 
         void DeleteChildLess(STreeNode * pParent,STreeNode * pNode);    //pNode无子
         void DeleteSingleSon(STreeNode & pParent,STreeNode * pNode);    //pNode是pParent的唯一子结点
@@ -32,6 +35,7 @@ class CBinaryTree {
         STreeNode * Find(int value) const;
         void PreOrder(VISIT Visit) const;
         void InOrder(VISIT Visit) const;
+        void PostOrder(VISIT Visit) const;
         ~CBinaryTree();
 };
 #endif //_CBINARYTREE
