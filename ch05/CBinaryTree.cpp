@@ -250,11 +250,11 @@ void CBinaryTree::_PostOrder2(VISIT Visit) const {
         time = s.top().second;
         s.pop();
         if(0 == time) {
+            s.push(std::make_pair(pCur,1));
             if(pCur->pRight)
                 s.push(std::make_pair(pCur->pRight,0));
             if(pCur->pLeft)
                 s.push(std::make_pair(pCur->pLeft,0));
-            s.push(std::make_pair(pCur,1));
         }else {
             Visit(pCur->value);
         }
