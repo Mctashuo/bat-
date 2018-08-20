@@ -1,13 +1,6 @@
 #include"CBinaryTree.h"
 #include <stack>
 
-CBinaryTree::CBinaryTree() {
-
-}
-
-CBinaryTree::~CBinaryTree() {
-}
-
 
 //二叉查找树
 //左子树上的所有结点值均小于根结点值
@@ -50,7 +43,9 @@ bool CBinaryTree::_Insert2(int value) {
         return true;
     }else {
         STreeNode * pNode = m_pRoot;
+        STreeNode * pCur = m_pRoot;
         while(pNode) {
+            pCur = pNode;
             if(value < pNode->value) 
                 pNode = pNode->pLeft;
             else if(value > pNode->value) 
@@ -58,7 +53,12 @@ bool CBinaryTree::_Insert2(int value) {
             else 
                 return false;
         }
-        pNode = new STreeNode(value);
+        if(value > pCur->value) {
+            pCur->pRight = new STreeNode(value);
+        
+        }else if(value < pCur->value) {
+            pCur->pLeft = new STreeNode(value);
+        }
         return true;
     }
     return false;

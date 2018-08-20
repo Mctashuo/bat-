@@ -5,7 +5,7 @@ typedef struct tagStreeNode {
     int value;
     tagStreeNode * pLeft;
     tagStreeNode * pRight;
-    tagStreeNode(int v):value(v),pLeft(NULL),pRight(NULL) {}
+    tagStreeNode(int v):value(v),pLeft(nullptr),pRight(nullptr) {}
 }STreeNode;
 
 typedef void (*VISIT) (int value);
@@ -29,13 +29,13 @@ class CBinaryTree {
         void DeleteChildLess(STreeNode * pParent,STreeNode * pNode);    //pNode无子
         void DeleteSingleSon(STreeNode & pParent,STreeNode * pNode);    //pNode是pParent的唯一子结点
     public:
-        CBinaryTree();
+        CBinaryTree() {m_pRoot = nullptr;}
         bool Insert(int value);
         bool Delete(int value);
         STreeNode * Find(int value) const;
         void PreOrder(VISIT Visit) const;
         void InOrder(VISIT Visit) const;
         void PostOrder(VISIT Visit) const;
-        ~CBinaryTree();
+        ~CBinaryTree() {}
 };
 #endif //_CBINARYTREE
