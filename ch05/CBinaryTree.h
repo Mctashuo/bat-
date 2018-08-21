@@ -28,6 +28,7 @@ class CBinaryTree {
 
         void DeleteChildLess(STreeNode * pParent,STreeNode * pNode);    //pNode无子
         void DeleteSingleSon(STreeNode & pParent,STreeNode * pNode);    //pNode是pParent的唯一子结点
+        bool _LargestBST(STreeNode *pRoot,int & nMin,int &nMax,int & count,int &nNumber,STreeNode * & pNode) const; //最大二叉搜索子树
     public:
         CBinaryTree() {m_pRoot = nullptr;}
         bool Insert(int value);
@@ -36,6 +37,8 @@ class CBinaryTree {
         void PreOrder(VISIT Visit) const;
         void InOrder(VISIT Visit) const;
         void PostOrder(VISIT Visit) const;
+        int LargestBST(STreeNode * &pNode) const;
+        
         ~CBinaryTree() {}
 };
 #endif //_CBINARYTREE

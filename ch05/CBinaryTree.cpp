@@ -1,5 +1,6 @@
 #include"CBinaryTree.h"
 #include <stack>
+#include <climits>
 
 
 //二叉查找树
@@ -259,4 +260,43 @@ void CBinaryTree::_PostOrder2(VISIT Visit) const {
             Visit(pCur->value);
         }
     }
+}
+//count记录总最大结点数,nNmuber记录当前的节点数
+bool CBinaryTree::_LargestBST(STreeNode *pRoot,int & nMin,int &nMax,int & count,int &nNumber,STreeNode * & pNode) const { //最大二叉搜索子树
+    count = 0;
+    if(!pRoot) {
+        return true;
+    }
+    int nMax1 = INT_MIN;
+    int nMax2 = INT_MIN;
+    int nMin1 = INT_MAX;
+    int nMin2 = INT_MAX;
+    int c1,c2;
+    c1 = c2 = 0;
+    if(!_LargestBST(pRoot->pLeft,nMin1,nMax1,c1,nNumber,pNode))
+        return false;
+    if(!_LargestBST(pRoot->pRight,nMin2,nMax2,c2,nNumber,pNode))
+        return false;
+    if(pRoot->value > nMin2 || pRoot->value < nMax1)
+       return false;
+    count = c1 + c2 + 1;
+    
+    nMin1 < pRoot->value ? nMin = nMin1:nMin = pRoot->value;
+    nMax1 > pRoot->value ? nMax = nMax1:nMax = pRoot->value;
+    
+    if(count > nNumber) {
+        nNumber = count;
+        pNode = pRoot;
+    }
+
+    return true;
+
+
+}
+
+int CBinaryTree::LargestBST(STreeNode *& pNode) const {
+    int nMin,nMax,count;
+    int nNumber = 0;
+    _LargestBST(m_pRoot,nMin,nMax,count,nNumber,pNode);
+    return nNumber;
 }
