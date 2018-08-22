@@ -3,6 +3,7 @@
 int Merge(int a[],int low,int mid,int high,int &count);
 void MergeSort(int a[],int low,int high,int &count);
 void Print(const int a[],const int size);
+void PrintPair(const int a[],int i,int j,int mid);
 int main() {
     int a[] = {3,56,2,7,45,8,1};
     int size = sizeof(a)/sizeof(int);
@@ -14,6 +15,11 @@ int main() {
     return 0;
 }
 
+void PrintPair(const int a[],int i,int j,int mid) {
+    for(;i <= mid;i++) {
+        std::cout<<"("<<a[j]<<","<<a[i]<<")"<<std::endl;
+    }
+}
 void Print(const int a[],const int size) {
     int i = 0;
     for(;i < size;i++) {
@@ -31,6 +37,7 @@ int Merge(int a[],int low,int mid,int high,int &count) {
         if(a[i] < a[j])
             temp[size++] = a[i++];
         else if(a[j] < a[i]) { 
+            PrintPair(a,i,j,mid);
             temp[size++] = a[j++];
             count += mid - i + 1;
         
