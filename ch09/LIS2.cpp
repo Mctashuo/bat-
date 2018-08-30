@@ -37,6 +37,7 @@ void Insert(int *a,int &size,int x)
     {
         a[size] = x;
         size++;
+        return;
     }
 
     int low=0,high=size -1;
